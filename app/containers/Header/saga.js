@@ -158,7 +158,7 @@ export function* loadNetwork(action) {
         yield put(checkFaucet());
       }
     } else {
-      throw new Error('keystore not initiated - Create wallet before connecting');
+      throw new Error('Create wallet before connecting');
     }
   } catch (err) {
     // const errorString = `loadNetwork error - ${err.message}`;
@@ -176,15 +176,15 @@ export function* confirmSendTransaction() {
     const gasPrice = yield select(makeSelectGasPrice());
 
     if (!web3.isAddress(fromAddress)) {
-      throw new Error('Source address invalid');
+      throw new Error('Source address is invalid');
     }
 
     if (amount <= 0) {
-      throw new Error('Amount must be possitive');
+      throw new Error('Amount must be positive');
     }
 
     if (!web3.isAddress(toAddress)) {
-      throw new Error('Destenation address invalid');
+      throw new Error('Destination address invalid');
     }
 
     if (!(gasPrice > 0.1)) {
@@ -213,10 +213,10 @@ export function* SendTransaction() {
     const tokenToSend = yield select(makeSelectSendTokenSymbol());
 
     if (!password) {
-      throw new Error('No password found - please unlock wallet before send');
+      throw new Error('No password found - please unlock wallet before attempting transactions');
     }
     if (!keystore) {
-      throw new Error('No keystore found - please create wallet');
+      throw new Error('No keystore found - please create or load a wallet');
     }
     keystore.passwordProvider = (callback) => {
       // we cannot use selector inside this callback so we use a const value
@@ -314,7 +314,6 @@ function* checkTokensBalances(address) {
 
   for (let i = 0; i < tokenList.length; i += 1) {
     const symbol = tokenList[i];
-    // console.log('address: ' + address + ' token: ' + tokenList[i]);
     yield checkTokenBalance(address, symbol);
   }
   // console.log(tokenMap);

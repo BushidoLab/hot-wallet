@@ -6,13 +6,14 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Alert, Spin } from 'antd';
+import { Alert, Spin, Icon } from 'antd';
 import styled from 'styled-components';
 import TxLink from 'components/TxLink';
 
 const Span = styled.span`
   overflow-wrap: break-word;
 `;
+const antIcon = <Icon type="loading" style={{ fontSize: 24, position: 'static' }} spin />;
 
 function SendProgress({ sendInProgress, sendError, sendTx, txExplorer }) {
   if (sendInProgress) {
@@ -22,6 +23,7 @@ function SendProgress({ sendInProgress, sendError, sendTx, txExplorer }) {
         style={{ position: 'static' }}
         size="large"
         tip="Sending..."
+        indicator={antIcon}
       >
         <br /><br />
       </Spin>

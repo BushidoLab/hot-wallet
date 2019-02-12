@@ -47,7 +47,7 @@ function RestoreWalletModal(props) {
         </Button >,
       ]}
     >
-      <Description> {"HDPathString m/44'/60'/0'/0 is used for address generation"}</Description>
+      <Description> {'Enter your mnemonic seed used in address generation'}</Description>
       <Input
         placeholder="Enter seed"
         prefix={<Icon type="wallet" />}
@@ -60,7 +60,7 @@ function RestoreWalletModal(props) {
       />
       <Div>
         <Input
-          placeholder="Enter password for keystore encryption"
+          placeholder="Enter password to secure this wallet"
           prefix={<Icon type="key" />}
           value={userPassword}
           onChange={onChangeUserPassword}

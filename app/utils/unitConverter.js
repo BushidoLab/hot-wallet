@@ -33,20 +33,11 @@ const ratesMaps =
     'https://api.coinmarketcap.com/v1/ticker/ethereum/?convert=EUR': {
       eth_eth: { path: { const: 1 }, isInverse: false, name: 'ETH' },
       eth_usd: { path: { symbol: 'eth', key: 'price_usd' }, name: 'USD' },
-      eth_btc: { path: { symbol: 'eth', key: 'price_btc' }, name: 'BTC' },
-      eth_eur: { path: { symbol: 'eth', key: 'price_eur' }, name: 'EURO' },
     },
 
     'https://api.coinmarketcap.com/v1/ticker/?convert=EUR': {
       eth_eth: { path: { const: 1 }, name: 'ETH' },
       eth_usd: { path: { symbol: 'eth', key: 'price_usd' }, name: 'USD' },
-      eth_btc: { path: { symbol: 'eth', key: 'price_btc' }, name: 'BTC' },
-      eth_eur: { path: { symbol: 'eth', key: 'price_eur' }, name: 'EURO' },
-      eth_eos: { // to get eth_eos: eth_usd * usd_eos
-        name: 'EOS',
-        path: { symbol: 'eth', key: 'price_usd', isInverse: false },
-        path2: { symbol: 'eos', key: 'price_usd', isInverse: true },
-      },
     },
   };
 

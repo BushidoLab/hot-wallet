@@ -14,7 +14,7 @@ const H1 = styled.h1`
 `;
 
 const H2 = styled.h2`
-font-size: 16px;
+font-size: 18px;
 margin-top:30px;
 color: #b9b9b9;
 font-weight: 400;
@@ -25,9 +25,10 @@ function WelcomeText() {
     <div>
       <H1>Welcome to Hot Wallet <br />To begin, create or restore Ethereum wallet<br /></H1>
       <H2>
-        Hot wallet is a zero client. Connection to Ethereum network is made via infura / local node. <br />
+        Connection to Ethereum network is made via infura / local node. <br />
         Keystore is encrypted using the password. When the wallet is locked, you can only view balances. <br />
-        All keys are saved inside the browser and never sent.
+        We recommend turning off browser extensions and if you are using chrome, running this website on incognito mode. <br />
+        This is to avoid any chance of malicious attacks from third party plugins
       </H2>
     </div>
   );

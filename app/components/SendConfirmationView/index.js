@@ -6,7 +6,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Alert, Button, Spin } from 'antd';
+import { Alert, Button, Spin, Icon } from 'antd';
 import styled from 'styled-components';
 
 const Div = styled.div`
@@ -15,6 +15,7 @@ const Div = styled.div`
 
 // import { FormattedMessage } from 'react-intl';
 // import messages from './messages';
+const antIcon = <Icon type="loading" style={{ fontSize: 24, position: 'static' }} spin />;
 
 function SendConfirmationView(props) {
   const {
@@ -34,6 +35,7 @@ function SendConfirmationView(props) {
           style={{ position: 'static' }}
           size="large"
           tip="checking transaction...."
+          indicator={antIcon}
         >
           <br />
         </Spin>

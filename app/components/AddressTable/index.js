@@ -181,7 +181,7 @@ function AddressTable(props) {
         filterTitle: null,
         filterConfirm: 'Ok',
         filterReset: 'Reset',
-        emptyText: 'No Data',
+        emptyText: 'No token data found for this network',
       }}
 
     >

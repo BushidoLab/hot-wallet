@@ -208,7 +208,7 @@ export function checkFaucetSuccess() {
     React.createElement(
       Button,
       { key: 'b1', type: 'default', size: 'default', onClick: closeNotification },
-      'No man'
+      'Not now'
     ),
     '  ',
     React.createElement(
@@ -225,8 +225,8 @@ export function checkFaucetSuccess() {
   );
   notification.open({
     message: 'Ropsten Testnet faucet',
-    description: 'Need some coins for testing?',
-    duration: 10,
+    description: 'Need some Ether for testing?',
+    duration: 5,
     key,
     btn,
     icon,

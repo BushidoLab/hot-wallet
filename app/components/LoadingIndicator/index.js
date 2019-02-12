@@ -5,7 +5,7 @@
 */
 
 import React from 'react';
-import { Spin } from 'antd';
+import { Spin, Icon } from 'antd';
 import styled from 'styled-components';
 
 const Div = styled.div`
@@ -16,11 +16,12 @@ left: 50%;
 transform: translate(-50%, -50%);
 
 `;
+const antIcon = <Icon type="loading" style={{ fontSize: 24, position: 'static' }} spin />;
 
 function LoadingIndicator() {
   return (
     <Div>
-      <Spin size="large" tip="Hot Wallet" />
+      <Spin size="large" tip="Hot Wallet" indicator={antIcon} />
     </Div>
   );
 }

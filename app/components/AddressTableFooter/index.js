@@ -47,8 +47,10 @@ function AddressTableFooter(props) {
         loading={addressListLoading}
         error={addressListError}
         disabled={!isComfirmed}
-        popconfirmMsg={false}
+        popconfirmMsg="Add new address?"
+        style={{ width: '200px' }}
       />
+      <br />
       <IconButton
         text="Check balances"
         icon="reload"
@@ -56,26 +58,27 @@ function AddressTableFooter(props) {
         loading={checkingBalances}
         error={checkingBalancesError}
         disabled={!networkReady}
-        popconfirmMsg="Refresh balance?"
+        style={{ width: '200px' }}
       />
+      <br />
       <IconButton
         text="Update rates"
-        icon="global"
+        icon="wallet"
         onClick={onGetExchangeRates}
         loading={getExchangeRatesLoading}
         error={getExchangeRatesError}
         disabled={!networkReady}
-        popconfirmMsg="Refresh exchange rates?"
+        style={{ width: '200px' }}
       />
       <br />
       <IconButton
         text="Select Tokens"
         icon="bars"
         onClick={onShowTokenChooser}
-        type="primary"
+        style={{ width: '200px', margin: '15px' }}
+        // type="primary"
         // onClick, loading, error, disabled, popconfirmMsg
       />
-      <br /><br />
     </Div>
   );
 }

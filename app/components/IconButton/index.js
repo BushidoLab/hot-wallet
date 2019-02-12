@@ -46,7 +46,7 @@ Btn.propTypes = {
 const handlePopconfirm = (popConfirmText, onClick, component) => {
   if (popConfirmText) {
     return (
-      <Popconfirm placement="top" title={popConfirmText} onConfirm={onClick} okText="Confirm" cancelText="Abort">
+      <Popconfirm placement="right" title={popConfirmText} onConfirm={onClick} okText="Confirm" cancelText="Abort">
         {component}
         <span />
       </Popconfirm>

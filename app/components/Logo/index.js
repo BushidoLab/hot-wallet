@@ -8,6 +8,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { website } from 'utils/constants';
 import walletLogo from './hot-wallet.svg';
+import walletLogo2 from '../../images/token-icons/ethicon.png';
 
 const Div = styled.div`
   height: 80px;
@@ -25,7 +26,7 @@ const Img = styled.img`
 function Logo() {
   return (
     <Div>
-      <Img alt="logo" src={walletLogo} />
+      <Img alt="logo" src={walletLogo2} />
       <a href={website}>
         Hot Wallet
       </a>

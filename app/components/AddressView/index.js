@@ -6,7 +6,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Spin, Alert } from 'antd';
+import { Spin, Alert, Icon } from 'antd';
 import styled from 'styled-components';
 
 import AddressTable from 'components/AddressTable';
@@ -88,12 +88,14 @@ function AddressView(props) {
     );
   }
 
+  const antIcon = <Icon type="loading" style={{ fontSize: 24, position: 'static' }} spin />;
+
   return (
     <Spin
       spinning={generateKeystoreLoading}
       style={{ position: 'static' }}
       size="large"
-      tip="Loading..."
+      indicator={antIcon}
     >
       {addressViewContent}
     </Spin>

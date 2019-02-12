@@ -9,19 +9,11 @@ import PropTypes from 'prop-types';
 // import styled from 'styled-components';
 
 function RestoreWallet({ isShowRestoreWallet, userSeed, onChangeUserSeed, onRestoreWalletFromSeed }) {
-  // console.log(isShowRestoreWallet);
-  // onSubmit={props.onSubmitForm}
-  /*
-  <textarea
-   placeholder="Enter seed"
-   onChange={onChangeUserSeed}
-   />
-  */
   if (isShowRestoreWallet) {
     return (
       <div>
         <br />
-        <form > { /* todo: cancel default action */}
+        <form >
           <label htmlFor="restoreWalletBox">
             <input
               id="restoreWalletBox"
