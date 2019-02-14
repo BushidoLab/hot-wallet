@@ -12,7 +12,7 @@ import styled from 'styled-components';
 import AddressTable from 'components/AddressTable';
 // import AddressListStatus from 'components/AddressListStatus';
 // import CheckBalancesStatus from 'components/CheckBalancesStatus';
-import AddressTableFooter from 'components/AddressTableFooter';
+// import AddressTableFooter from 'components/AddressTableFooter';
 import WelcomeText from 'components/WelcomeText';
 
 const Div = styled.div`
@@ -25,14 +25,14 @@ function AddressView(props) {
     generateKeystoreLoading, generateKeystoreError,
     isComfirmed,
     addressMap, tokenDecimalsMap,
-    onShowSendToken, onCheckBalances,
-    onGenerateAddress,
-    networkReady, checkingBalanceDoneTime, checkingBalances, checkingBalancesError,
-    addressListLoading, addressListError, addressListMsg,
+    onShowSendToken,
     exchangeRates, onSelectCurrency, convertTo,
-    onGetExchangeRates,
-    getExchangeRatesDoneTime, getExchangeRatesLoading, getExchangeRatesError,
-    onShowTokenChooser,
+    // onGenerateAddress, onCheckBalances,
+    // networkReady, checkingBalanceDoneTime, checkingBalances, checkingBalancesError,
+    // addressListLoading, addressListError, addressListMsg,
+    // onGetExchangeRates,
+    // getExchangeRatesDoneTime, getExchangeRatesLoading, getExchangeRatesError,
+    // onShowTokenChooser,
    } = props;
 
   const addressTableProps = {
@@ -44,26 +44,26 @@ function AddressView(props) {
     convertTo,
   };
 
-  const addressTableFooterProps = {
-    checkingBalanceDoneTime,
-    checkingBalances,
-    checkingBalancesError,
-    onCheckBalances,
-    networkReady,
+  // const addressTableFooterProps = {
+  //   checkingBalanceDoneTime,
+  //   checkingBalances,
+  //   checkingBalancesError,
+  //   onCheckBalances,
+  //   networkReady,
 
-    isComfirmed,
-    onGenerateAddress,
-    addressListLoading,
-    addressListError,
-    addressListMsg,
+  //   isComfirmed,
+  //   onGenerateAddress,
+  //   addressListLoading,
+  //   addressListError,
+  //   addressListMsg,
 
-    onGetExchangeRates,
-    getExchangeRatesDoneTime,
-    getExchangeRatesLoading,
-    getExchangeRatesError,
+  //   onGetExchangeRates,
+  //   getExchangeRatesDoneTime,
+  //   getExchangeRatesLoading,
+  //   getExchangeRatesError,
 
-    onShowTokenChooser,
-  };
+  //   onShowTokenChooser,
+  // };
 
   let addressViewContent = (
     <Div>
@@ -83,7 +83,7 @@ function AddressView(props) {
     addressViewContent = (
       <Div>
         <AddressTable {...addressTableProps} />
-        <AddressTableFooter {...addressTableFooterProps} />
+        {/* <AddressTableFooter {...addressTableFooterProps} /> */}
       </Div>
     );
   }

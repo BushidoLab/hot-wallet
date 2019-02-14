@@ -5,10 +5,12 @@
 */
 
 import React from 'react';
-import { Button, Popconfirm, Menu, Icon } from 'antd';
+import { Button, Popconfirm, Menu, Icon, Alert } from 'antd';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import LockButton from 'components/LockButton';
+import WelcomeText from 'components/WelcomeText';
+import IconButton from 'components/IconButton';
 
 import AddressTableFooter from 'components/AddressTableFooter';
 
@@ -26,9 +28,10 @@ const Div = styled.div`
   }
 `;
 
-const PaddedDiv = styled.div`
-  padding: 30px 5px 20px 10px;
-  min-height: 100px;
+const paddedDiv = styled.div`
+  margin-top: 14px;
+  margin-left: 10px;
+  min-width: '250px';
 `;
 
 function SubHeader(props) {
@@ -36,12 +39,11 @@ function SubHeader(props) {
     onGenerateWallet, onShowRestoreWallet, isComfirmed, onCloseWallet,
     onLockWallet, password, onUnlockWallet,
     onGenerateAddress, addressListLoading, addressListError, // Add address
-    networkReady, checkingBalanceDoneTime, checkingBalances, checkingBalancesError, onCheckBalances,
-    onGetExchangeRates, addressListMsg, onShowTokenChooser,
-    getExchangeRatesDoneTime, getExchangeRatesLoading, getExchangeRatesError,
+    networkReady, checkingBalances, checkingBalancesError, onCheckBalances,
+    onGetExchangeRates, onShowTokenChooser,
+    getExchangeRatesLoading, getExchangeRatesError, checkingBalanceDoneTime,
+    addressListMsg, getExchangeRatesDoneTime, generateKeystoreError,
   } = props;
-
-  const lockButtonProps = { onLockWallet, password, onUnlockWallet };
 
   const addressTableFooterProps = {
     checkingBalanceDoneTime,
@@ -64,6 +66,7 @@ function SubHeader(props) {
     onShowTokenChooser,
   };
 
+  const lockButtonProps = { onLockWallet, password, onUnlockWallet };
   const noWalletSubHeader = [
     <Button key="new_wallet" type="primary" size="large" onClick={onGenerateWallet}>
       New wallet
@@ -72,17 +75,16 @@ function SubHeader(props) {
       Restore wallet
     </Button>,
   ];
-
   const existingWalletSubHeader = [
     <Menu
       mode="horizontal"
-      style={{ marginTop: '-40px', 'background-color': '#afafaf' }}
+      style={{ marginTop: '-30px', 'background-color': '#c1bfbf' }}
     >
-      <SubMenu title={<span className="submenu-title-wrapper" ><Icon type="setting" />Wallet Options</span>}>
-        <Menu.Item>
+      <SubMenu title={<span><Icon type="setting" />Wallet Options</span>}>
+        <Menu.Item style={{ height: '50px', marginTop: '20px' }} disabled>
           <LockButton key="lock_button" {...lockButtonProps} />
         </Menu.Item>
-        <Menu.Item key="Close">
+        <Menu.Item style={{ height: '50px', marginTop: '20px' }} disabled>
           <Popconfirm placement="right" title="Wallet will be deleted from memory and LocalStorage" onConfirm={onCloseWallet} okText="Confirm" cancelText="Abort">
             <Button key="close_wallet" type="default" icon="close-square-o" size="large" style={{ width: '200px' }}>
               Close wallet
@@ -96,7 +98,6 @@ function SubHeader(props) {
     </Menu>,
   ];
 
-
   const subHeader = isComfirmed ? existingWalletSubHeader : noWalletSubHeader;
 
   return (
@@ -109,25 +110,46 @@ function SubHeader(props) {
 SubHeader.propTypes = {
   onGenerateWallet: PropTypes.func,
   onShowRestoreWallet: PropTypes.func,
-  isComfirmed: PropTypes.bool,
   onCloseWallet: PropTypes.func,
   onLockWallet: PropTypes.func,
   password: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   onUnlockWallet: PropTypes.func,
-  onCheckBalances: PropTypes.func,
 
-  networkReady: PropTypes.bool,
-  checkingBalances: PropTypes.bool,
-  checkingBalancesError: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.bool]),
+  generateKeystoreLoading: PropTypes.bool,
+  generateKeystoreError: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.string,
+    PropTypes.bool,
+  ]),
+  isComfirmed: PropTypes.bool,
+  addressMap: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.bool,
+    PropTypes.array,
+  ]),
+  tokenDecimalsMap: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
+  onShowSendToken: PropTypes.func,
+  onShowTokenChooser: PropTypes.func,
 
   onGenerateAddress: PropTypes.func,
   addressListLoading: PropTypes.bool,
   addressListError: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.bool]),
+  addressListMsg: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+
+  onCheckBalances: PropTypes.func,
+  networkReady: PropTypes.bool,
+  checkingBalanceDoneTime: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  checkingBalances: PropTypes.bool,
+  checkingBalancesError: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.bool]),
+
+  exchangeRates: PropTypes.object,
+  onSelectCurrency: PropTypes.func,
+  convertTo: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
 
   onGetExchangeRates: PropTypes.func,
+  getExchangeRatesDoneTime: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   getExchangeRatesLoading: PropTypes.bool,
   getExchangeRatesError: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.bool]),
-  onShowTokenChooser: PropTypes.func,
 };
 
 export default SubHeader;

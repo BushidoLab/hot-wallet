@@ -7,32 +7,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Table } from 'antd';
+import { Table, Card, Button } from 'antd';
 
 import CurrencyDropdown from 'components/CurrencyDropdown';
 import TokenIcon from 'components/TokenIcon';
 
-const { Column } = Table;
+// const { Column } = Table;
 // import { LocaleProvider } from 'antd';
 // import { FormattedMessage } from 'react-intl';
 // import messages from './messages';
 
-const AddrTable = styled(Table)`
-  max-width: 860px;
-  margin-left: auto;
-  margin-right: auto;
-  tbody{
-    background: white;
-  }
-  .ant-table{
-    font-size: 13px !important;
-  }
-  th.columnCenter,
-  td.columnCenter{
-    text-align: center;
-  }
-`;
-
+// const AddrTable = styled(Table)`
+//   max-width: 860px;
+//   margin-left: auto;
+//   margin-right: auto;
+//   tbody{
+//     background: white;
+//   }
+//   .ant-table{
+//     font-size: 13px !important;
+//   }
+//   th.columnCenter,
+//   td.columnCenter{
+//     text-align: center;
+//   }
+// `;
 
 /**
  * Create list of rows, one row per token for given address
@@ -156,6 +155,79 @@ const addConvertRates = (rowList, exchangeRates, convertTo) =>
     }
   });
 
+function createTable(data, props) {
+  const table = [];
+  const currencyDropdownProps = props;
+  const cardGridStyle = { width: '40%', padding: '0px', marginLeft: '7%' };
+  const cardGridStyleSm = { width: '15%', padding: '0px' };
+  // const cardStyle = { th: '1000px' };
+
+  for (let i = 0; i < data.length; i += 1) {
+    const address = data[i].address;
+    const icon = data[i].token;
+    const balance = data[i].balance;
+    let convert;
+    if (data[i].convert) {
+      convert = data[i].convert;
+    } else {
+      convert = 'N/A';
+    }
+    if (table.length === 0) {
+      table.push(
+        <div>
+          <Card.Grid type="inner" style={cardGridStyle}>
+            <Card title="Address">
+              {address}
+            </Card>
+          </Card.Grid>
+          <Card.Grid type="inner" style={cardGridStyleSm}>
+            <Card title="Token">
+              {icon.toUpperCase()} <TokenIcon tokenSymbol={icon} />
+            </Card>
+          </Card.Grid>
+          <Card.Grid type="inner" style={cardGridStyleSm}>
+            <Card title="Balance">
+              {balance}
+            </Card>
+          </Card.Grid>
+          <Card.Grid type="inner" style={cardGridStyleSm}>
+            <Card title={<CurrencyDropdown {...currencyDropdownProps} />}>
+              {convert}
+            </Card>
+          </Card.Grid>
+          <hr />
+        </div>
+      );
+    } else {
+      table.push(
+        <span>
+          <Card.Grid type="inner" style={cardGridStyle}>
+            <Card>
+              {address}
+            </Card>
+          </Card.Grid>
+          <Card.Grid type="inner" style={cardGridStyleSm}>
+            <Card>
+              {icon.toUpperCase()} <TokenIcon tokenSymbol={icon} />
+            </Card>
+          </Card.Grid>
+          <Card.Grid type="inner" style={cardGridStyleSm}>
+            <Card>
+              {balance}
+            </Card>
+          </Card.Grid>
+          <Card.Grid type="inner" style={cardGridStyleSm}>
+            <Card>
+              {convert}
+            </Card>
+          </Card.Grid>
+        </span>
+      );
+    }
+  }
+  return table;
+}
+
 function AddressTable(props) {
   const {
     addressMap,
@@ -170,105 +242,104 @@ function AddressTable(props) {
 
   const rowList = transformList(addressMap, tokenDecimalsMap, true);
   const completeRowList = addConvertRates(rowList, exchangeRates, convertTo);
+  const info = completeRowList;
+
+  const address = info[0].address;
+  const icon = info[0].token;
 
   return (
-    <AddrTable
-      dataSource={completeRowList}
-      bordered
-      scroll={{ x: 860 }}
-      pagination={false}
-      locale={{
-        filterTitle: null,
-        filterConfirm: 'Ok',
-        filterReset: 'Reset',
-        emptyText: 'No token data found for this network',
-      }}
+    <div>
+      <Card title="Wallet information" style={{ minWidth: '800px' }}>
+        {createTable(completeRowList, currencyDropdownProps)}
+      </Card>
+      <Button style={{ position: 'relative', bottom: '10px', marginTop: '30px' }}>
+        <a onClick={() => onShowSendToken(address, icon)}>Send</a>
+      </Button>
+    </div>
 
-    >
-      <Column
-        title="Address"
-        dataIndex="address"
-        key="address"
-        width="267px"
-        className="columnCenter"
-        colSpan="1"
-        rowSpan="3"
-        render={(text, record) => {
-          const obj = {
-            children: text,
-            props: {},
-          };
-          if (record.token !== 'eth') {
-            // obj.props.rowSpan = 0;
-            obj.props.rowSpan = 0;
-            // obj.children = '~';
-          } else {
-            obj.props.rowSpan = Object.keys(tokenDecimalsMap).length || 2;
-          }
-          return obj;
+    /* <AddrTable
+        dataSource={completeRowList}
+        bordered
+        scroll={{ x: 860 }}
+        pagination={false}
+        locale={{
+          filterTitle: null,
+          filterConfirm: 'Ok',
+          filterReset: 'Reset',
+          emptyText: 'No token data found for this network',
         }}
-      />
-      {/* <Column
-        title="#"
-        dataIndex="key"
-        key="key"
-        width="10px"
-        sorter={(a, b) => parseInt(a.key, 10) - parseInt(b.key, 10)}
-        sortOrder="ascend"
-        className="columnCenter"
-      /> */}
-      <Column
-        title="Icon"
-        key="Icon"
-        width="12px"
-        render={(text, record) => (
-          <TokenIcon tokenSymbol={record.token} />
+      >
+        <Column
+          title="Address"
+          dataIndex="address"
+          key="address"
+          width="267px"
+          className="columnCenter"
+          colSpan="1"
+          rowSpan="3"
+          render={(text, record) => {
+            const obj = {
+              children: text,
+              props: {},
+            };
+            if (record.token !== 'eth') {
+            // obj.props.rowSpan = 0;
+              obj.props.rowSpan = 0;
+            // obj.children = '~';
+            } else {
+              obj.props.rowSpan = Object.keys(tokenDecimalsMap).length || 2;
+            }
+            return obj;
+          }}
+        />
+        <Column
+          title="Icon"
+          key="Icon"
+          width="12px"
+          render={(text, record) => (
+            <TokenIcon tokenSymbol={record.token} />
         )}
-        className="columnCenter"
-      />
+          className="columnCenter"
+        />
 
-      <Column
-        title="Token"
-        dataIndex="token"
-        key="token"
-        width="65px"
-        className="columnCenter"
-        render={(text, record) => (
+        <Column
+          title="Token"
+          dataIndex="token"
+          key="token"
+          width="65px"
+          className="columnCenter"
+          render={(text, record) => (
           record.token.toUpperCase()
         )}
-      />
-      <Column
-        title="Balance"
-        dataIndex="balance"
-        key="balance"
-        width="80px"
-        filters={[{
-          text: 'Remove empty',
-          value: '0 ETH',
-        }]}
-        onFilter={(value, record) => record.balance !== value}
-      />
-      <Column
-        title={<CurrencyDropdown {...currencyDropdownProps} />}
-        dataIndex="convert"
-        key="convert"
-        width="80px"
-      />
-      <Column
-        width="65px"
-        title="Action"
-        key="action"
-        render={(text, record) => (
-          <span>
-            {/* <a href="#" >Show QR</a>
-            <span className="ant-divider" /> */}
-            {/* eslint-disable */}
-            <a onClick={() => onShowSendToken(record.address, record.token)}>Send</a>
-            {/* eslint-enable */}
-          </span>
+        />
+        <Column
+          title="Balance"
+          dataIndex="balance"
+          key="balance"
+          width="80px"
+          filters={[{
+            text: 'Remove empty',
+            value: '0 ETH',
+          }]}
+          onFilter={(value, record) => record.balance !== value}
+        />
+        <Column
+          title={<CurrencyDropdown {...currencyDropdownProps} />}
+          dataIndex="convert"
+          key="convert"
+          width="80px"
+        />
+        <Column
+          width="65px"
+          title="Action"
+          key="action"
+          render={(text, record) => (
+            <span>
+              <a onClick={() => onShowSendToken(record.address, record.token)}>Send</a>
+            </span>
         )}
-      />
-    </AddrTable >
+        />
+    </AddrTable > */
   );
 }
 

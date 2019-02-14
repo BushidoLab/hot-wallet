@@ -13,6 +13,7 @@ const Img = styled.img`
     color: #dbd9ff;
     font: 20px Impact;
     text-transform: uppercase;
+    padding: '0px';
   }
 `;
 
@@ -23,7 +24,7 @@ function TokenIcon({ tokenSymbol, size = 24 }) {
 
   return (
     <span>
-      <Img alt={tokenSymbol} src={iconPath} height={size.toString()} />
+      <Img alt={tokenSymbol} src={iconPath} height={size.toString() - 5} />
     </span>
   );
 }

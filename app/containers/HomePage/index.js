@@ -186,6 +186,31 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       onLoadWallet,
       loadWalletLoading,
       loadWalletError,
+      generateKeystoreLoading,
+      generateKeystoreError,
+      // addressList,
+      addressMap,
+      tokenDecimalsMap,
+
+      onShowSendToken,
+      onShowTokenChooser,
+
+      onCheckBalances,
+      onGenerateAddress,
+      addressListLoading,
+      addressListError,
+      addressListMsg,
+      networkReady,
+      checkingBalanceDoneTime,
+      checkingBalances,
+      checkingBalancesError,
+      onSelectCurrency,
+      exchangeRates,
+      convertTo,
+      onGetExchangeRates,
+      getExchangeRatesDoneTime,
+      getExchangeRatesLoading,
+      getExchangeRatesError,
     };
 
     const generateWalletProps = {
