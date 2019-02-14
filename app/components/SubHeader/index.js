@@ -5,13 +5,10 @@
 */
 
 import React from 'react';
-import { Button, Popconfirm, Menu, Icon, Alert } from 'antd';
+import { Button, Popconfirm, Menu, Icon } from 'antd';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import LockButton from 'components/LockButton';
-import WelcomeText from 'components/WelcomeText';
-import IconButton from 'components/IconButton';
-
 import AddressTableFooter from 'components/AddressTableFooter';
 
 const SubMenu = Menu.SubMenu;
@@ -28,12 +25,6 @@ const Div = styled.div`
   }
 `;
 
-const paddedDiv = styled.div`
-  margin-top: 14px;
-  margin-left: 10px;
-  min-width: '250px';
-`;
-
 function SubHeader(props) {
   const {
     onGenerateWallet, onShowRestoreWallet, isComfirmed, onCloseWallet,
@@ -42,7 +33,7 @@ function SubHeader(props) {
     networkReady, checkingBalances, checkingBalancesError, onCheckBalances,
     onGetExchangeRates, onShowTokenChooser,
     getExchangeRatesLoading, getExchangeRatesError, checkingBalanceDoneTime,
-    addressListMsg, getExchangeRatesDoneTime, generateKeystoreError,
+    addressListMsg, getExchangeRatesDoneTime,
   } = props;
 
   const addressTableFooterProps = {
@@ -68,31 +59,42 @@ function SubHeader(props) {
 
   const lockButtonProps = { onLockWallet, password, onUnlockWallet };
   const noWalletSubHeader = [
-    <Button key="new_wallet" type="primary" size="large" onClick={onGenerateWallet}>
+    <Button key="new_wallet" type="primary" size="large" onClick={onGenerateWallet} style={{ color: 'white', backgroundColor: '#FF007F', border: '0.5px solid black' }}>
       New wallet
     </Button>,
-    <Button key="restore_wallet" type="default" size="large" onClick={onShowRestoreWallet}>
+    <Button key="restore_wallet" type="default" size="large" onClick={onShowRestoreWallet} style={{ color: 'white', backgroundColor: 'black', border: '0.5px solid black' }}>
       Restore wallet
     </Button>,
   ];
+
+  const subHeaderStyles = {
+    display: 'block',
+    marginTop: '-30px',
+    backgroundImage: 'linear-gradient(#4b4b4b, black)',
+    border: '1px solid black',
+  };
+  const menuStyles = { height: '50px', marginTop: '20px', padding: '0px' };
+  const borderStyles = { borderRight: '0.25px solid black', borderLeft: '0.25px solid black', color: 'white' };
+  const caretStyles = { marginLeft: '10px', marginRight: '0px' };
+
   const existingWalletSubHeader = [
     <Menu
       mode="horizontal"
-      style={{ marginTop: '-30px', 'background-color': '#c1bfbf' }}
+      style={subHeaderStyles}
     >
-      <SubMenu title={<span><Icon type="setting" />Wallet Options</span>}>
-        <Menu.Item style={{ height: '50px', marginTop: '20px' }} disabled>
+      <SubMenu title={<span>Wallet Options <Icon type="caret-down" style={caretStyles} /></span>} style={borderStyles}>
+        <Menu.Item style={menuStyles} disabled key="1">
           <LockButton key="lock_button" {...lockButtonProps} />
         </Menu.Item>
-        <Menu.Item style={{ height: '50px', marginTop: '20px' }} disabled>
+        <Menu.Item style={menuStyles} disabled key="2">
           <Popconfirm placement="right" title="Wallet will be deleted from memory and LocalStorage" onConfirm={onCloseWallet} okText="Confirm" cancelText="Abort">
-            <Button key="close_wallet" type="default" icon="close-square-o" size="large" style={{ width: '200px' }}>
+            <Button key="close_wallet" type="default" icon="close" size="large" style={{ width: '200px' }}>
               Close wallet
             </Button>
           </Popconfirm>
         </Menu.Item>
       </SubMenu>
-      <SubMenu title={<span className="submenu-title-wrapper"><Icon type="plus" />Addresses</span>}>
+      <SubMenu title={<span>Addresses<Icon type="caret-down" style={caretStyles} /></span>} style={{ borderRight: '0.25px solid black', color: 'white' }}>
         <AddressTableFooter {...addressTableFooterProps} />
       </SubMenu>
     </Menu>,

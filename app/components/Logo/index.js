@@ -6,14 +6,15 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import { website } from 'utils/constants';
-import walletLogo from './hot-wallet.svg';
-import walletLogo2 from '../../images/token-icons/ethicon.png';
+import walletLogo2 from '../../images/token-icons/ethicon-white.png';
+// import { website } from 'utils/constants';
 
 const Div = styled.div`
   height: 80px;
   font-size: 18px;
-  line-height: 80px; 
+  line-height: 80px;
+  margin-left: -50%;
+  color: 'white';
 `;
 
 const Img = styled.img`
@@ -23,13 +24,19 @@ const Img = styled.img`
   margin-right: 10px;
 `;
 
+const Text = styled.text`
+  color: white;
+`;
+
 function Logo() {
   return (
     <Div>
-      <Img alt="logo" src={walletLogo2} />
-      <a href={website}>
+      <Img alt="logo" src={walletLogo2} style={{ color: 'white' }} />
+      {/* <a href={website}> */}
+      <Text>
         Hot Wallet
-      </a>
+      </Text>
+      {/* </a> */}
     </Div>
   );
 }

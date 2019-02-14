@@ -17,7 +17,7 @@ import { Row, Col } from 'antd';
 
 import NetworkIndicator from 'components/NetworkIndicator';
 import Logo from 'components/Logo';
-import NetworkMenu from 'components/NetworkMenu';
+// import NetworkMenu from 'components/NetworkMenu';
 
 // import { changeBalance } from 'containers/HomePage/actions';
 
@@ -54,10 +54,7 @@ function Header(props) {
   const {
     loading,
     error,
-    networkName,
     blockNumber,
-    availableNetworks,
-    onLoadNetwork,
    } = props;
 
   const networkIndicatorProps = {
@@ -66,22 +63,16 @@ function Header(props) {
     blockNumber,
   };
 
-  const networkMenuProps = {
-    availableNetworks,
-    networkName,
-    onLoadNetwork,
-  };
-
   return (
     <HeaderWrapped className="clearfix">
-      <Row type="flex" align="middle" justify="space-between" style={{ backgroundColor: '#fff' }}>
+      <Row type="flex" align="middle" justify="space-between" style={{ backgroundColor: '#1e1e1e' }}>
         <Col sm={{ span: 6, offset: 1 }} xs={24}>
           <Logo />
         </Col>
         <Col sm={{ span: 8, offset: 2 }} xs={24}>
           <Row type="flex" align="middle" justify="center">
             <NetworkIndicator {...networkIndicatorProps} />
-            <NetworkMenu {...networkMenuProps} />
+            {/* <NetworkMenu {...networkMenuProps} /> */}
           </Row>
         </Col>
       </Row >

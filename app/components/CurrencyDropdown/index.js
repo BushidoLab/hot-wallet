@@ -22,15 +22,15 @@ function CurrencyDropdown(props) {
     });
   }
   const convertToMenu = (
-    <Menu onClick={(evt) => onSelectCurrency(evt.key)}>
-      <MenuItem key={'none'}>None</MenuItem>
+    <Menu onClick={(evt) => onSelectCurrency(evt.key)} >
+      <MenuItem key={'none'} >None</MenuItem>
       {convertMenuOptions}
     </Menu>
   );
 
   return (
     <Dropdown overlay={convertToMenu}>
-      <span>
+      <span style={{ fontWeight: 900, color: 'black' }}>
         {convertToSymbol === 'none' ? 'Convert' : `${convertToSymbol}`}<Icon type="down" />
       </span>
     </Dropdown>

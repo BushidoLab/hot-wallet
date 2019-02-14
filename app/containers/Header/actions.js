@@ -23,14 +23,14 @@ import {
   GET_EXCHANGE_RATES_ERROR,
 
   CHECK_FAUCET,
-  CHECK_FAUCET_SUCCESS,
+  // CHECK_FAUCET_SUCCESS,
   CHECK_FAUCET_ERROR,
   ASK_FAUCET,
   ASK_FAUCET_SUCCESS,
   ASK_FAUCET_ERROR,
 } from './constants';
 
-import { store } from '../../app';
+// import { store } from '../../app';
 
 /**
  * Connect to eth network using address from network.js file
@@ -192,49 +192,49 @@ export function checkFaucet() {
  *
  * @return {object}      An action object with a type of CHECK_FAUCET_SUCCESS
  */
-export function checkFaucetSuccess() {
-  //  message.success('Exchange rates updated succesfully');
-  const key = `open${Date.now()}`;
-  const closeNotification = () => {
-    // to hide notification box
-    notification.close(key);
-  };
-  const ask = () => {
-    // to hide notification box
-    notification.close(key);
-    store.dispatch(askFaucet());
-  };
-  const btn = [
-    React.createElement(
-      Button,
-      { key: 'b1', type: 'default', size: 'default', onClick: closeNotification },
-      'Not now'
-    ),
-    '  ',
-    React.createElement(
-      Button,
-      { key: 'b2', type: 'primary', size: 'default', onClick: ask },
-      'Sure'
-    )];
-  notification.config({
-    placement: 'bottomRight',
-  });
-  const icon = React.createElement(
-    Icon,
-    { type: 'bulb', style: { color: '#108ee9' } }
-  );
-  notification.open({
-    message: 'Ropsten Testnet faucet',
-    description: 'Need some Ether for testing?',
-    duration: 5,
-    key,
-    btn,
-    icon,
-  });
-  return {
-    type: CHECK_FAUCET_SUCCESS,
-  };
-}
+// export function checkFaucetSuccess() {
+//   //  message.success('Exchange rates updated succesfully');
+//   const key = `open${Date.now()}`;
+//   const closeNotification = () => {
+//     // to hide notification box
+//     notification.close(key);
+//   };
+//   const ask = () => {
+//     // to hide notification box
+//     notification.close(key);
+//     store.dispatch(askFaucet());
+//   };
+//   const btn = [
+//     React.createElement(
+//       Button,
+//       { key: 'b1', type: 'default', size: 'default', onClick: closeNotification },
+//       'Not now'
+//     ),
+//     '  ',
+//     React.createElement(
+//       Button,
+//       { key: 'b2', type: 'primary', size: 'default', onClick: ask },
+//       'Sure'
+//     )];
+//   notification.config({
+//     placement: 'bottomRight',
+//   });
+//   const icon = React.createElement(
+//     Icon,
+//     { type: 'bulb', style: { color: '#108ee9' } }
+//   );
+//   notification.open({
+//     message: 'Ropsten Testnet faucet',
+//     description: 'Need some Ether for testing?',
+//     duration: 5,
+//     key,
+//     btn,
+//     icon,
+//   });
+//   return {
+//     type: CHECK_FAUCET_SUCCESS,
+//   };
+// }
 
 /**
  * checkFaucetError failed

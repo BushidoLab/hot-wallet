@@ -29,7 +29,7 @@ function GenerateWalletModal(props) {
       onOk={onGenerateKeystore}
       onCancel={onGenerateWalletCancel}
       footer={[
-        <Button key="submit" type="primary" size="large" onClick={onGenerateKeystore}>
+        <Button key="submit" type="primary" size="large" onClick={onGenerateKeystore} style={{ color: 'white', backgroundColor: '#FF007F', border: '0.5px solid black' }}>
           Create
         </Button>,
       ]}

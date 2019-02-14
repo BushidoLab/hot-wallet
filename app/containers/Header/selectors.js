@@ -1,5 +1,4 @@
 import { createSelector } from 'reselect';
-import Network from './network';
 /**
  * Direct selector to the header state domain
  */
@@ -25,7 +24,7 @@ const makeSelectPrevNetworkName = () => createSelector(
 );
 const makeSelectTxExplorer = () => createSelector(
   selectHeaderDomain,
-  (substate) => substate ? Network[substate.get('networkName')].tx_explorer : null
+  (substate) => substate ? 'Main Net' : null
 );
 const makeSelectAvailableNetworks = () => createSelector(
   selectHeaderDomain,

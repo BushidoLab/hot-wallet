@@ -6,8 +6,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { Table, Card, Button } from 'antd';
+import { Card, Button } from 'antd';
 
 import CurrencyDropdown from 'components/CurrencyDropdown';
 import TokenIcon from 'components/TokenIcon';
@@ -158,50 +157,80 @@ const addConvertRates = (rowList, exchangeRates, convertTo) =>
 function createTable(data, props) {
   const table = [];
   const currencyDropdownProps = props;
+
+  // Style objects
   const cardGridStyle = { width: '40%', padding: '0px', marginLeft: '7%' };
   const cardGridStyleSm = { width: '15%', padding: '0px' };
-  // const cardStyle = { th: '1000px' };
+  const headerStyles = { fontSize: '14px', paddingTop: 0, margin: 0, fontWeight: 900 };
+  const tableHeader = { backgroundColor: '#e8e8e8', border: '1px solid gray' };
 
   for (let i = 0; i < data.length; i += 1) {
     const address = data[i].address;
     const icon = data[i].token;
     const balance = data[i].balance;
+    const key = data[i].key;
+
     let convert;
     if (data[i].convert) {
       convert = data[i].convert;
     } else {
       convert = 'N/A';
     }
+
     if (table.length === 0) {
       table.push(
         <div>
-          <Card.Grid type="inner" style={cardGridStyle}>
-            <Card title="Address">
-              {address}
+          <Card.Grid type="inner" style={cardGridStyle} key={key}>
+            <Card style={tableHeader}>
+              <h1 style={headerStyles}>Address</h1>
             </Card>
           </Card.Grid>
           <Card.Grid type="inner" style={cardGridStyleSm}>
-            <Card title="Token">
-              {icon.toUpperCase()} <TokenIcon tokenSymbol={icon} />
+            <Card style={tableHeader}>
+              <h1 style={headerStyles}>Icon</h1>
             </Card>
           </Card.Grid>
           <Card.Grid type="inner" style={cardGridStyleSm}>
-            <Card title="Balance">
-              {balance}
+            <Card style={tableHeader}>
+              <h1 style={headerStyles}>Balance</h1>
             </Card>
           </Card.Grid>
           <Card.Grid type="inner" style={cardGridStyleSm}>
-            <Card title={<CurrencyDropdown {...currencyDropdownProps} />}>
-              {convert}
+            <Card style={tableHeader}>
+              <CurrencyDropdown {...currencyDropdownProps} />
             </Card>
           </Card.Grid>
           <hr />
         </div>
       );
+      table.push(
+        <span>
+          <Card.Grid type="inner" style={cardGridStyle} key={key}>
+            <Card>
+              {address}
+            </Card>
+          </Card.Grid>
+          <Card.Grid type="inner" style={cardGridStyleSm}>
+            <Card>
+              {icon.toUpperCase()} <TokenIcon tokenSymbol={icon} />
+            </Card>
+          </Card.Grid>
+          <Card.Grid type="inner" style={cardGridStyleSm}>
+            <Card>
+              {balance}
+            </Card>
+          </Card.Grid>
+          <Card.Grid type="inner" style={cardGridStyleSm}>
+            <Card>
+              {convert}
+            </Card>
+          </Card.Grid>
+        </span>
+      );
     } else {
       table.push(
         <span>
-          <Card.Grid type="inner" style={cardGridStyle}>
+          <Card.Grid type="inner" style={cardGridStyle} key={key}>
             <Card>
               {address}
             </Card>
@@ -249,97 +278,13 @@ function AddressTable(props) {
 
   return (
     <div>
-      <Card title="Wallet information" style={{ minWidth: '800px' }}>
+      <Card title="Wallet information" style={{ minWidth: '800px' }} bodyStyle={{ backgroundColor: '#f4f4f4' }} headStyle={{ backgroundColor: '#4b4b4b' }}>
         {createTable(completeRowList, currencyDropdownProps)}
       </Card>
       <Button style={{ position: 'relative', bottom: '10px', marginTop: '30px' }}>
-        <a onClick={() => onShowSendToken(address, icon)}>Send</a>
+        <div role="presentation" onClick={() => onShowSendToken(address, icon)}>Send</div>
       </Button>
     </div>
-
-    /* <AddrTable
-        dataSource={completeRowList}
-        bordered
-        scroll={{ x: 860 }}
-        pagination={false}
-        locale={{
-          filterTitle: null,
-          filterConfirm: 'Ok',
-          filterReset: 'Reset',
-          emptyText: 'No token data found for this network',
-        }}
-      >
-        <Column
-          title="Address"
-          dataIndex="address"
-          key="address"
-          width="267px"
-          className="columnCenter"
-          colSpan="1"
-          rowSpan="3"
-          render={(text, record) => {
-            const obj = {
-              children: text,
-              props: {},
-            };
-            if (record.token !== 'eth') {
-            // obj.props.rowSpan = 0;
-              obj.props.rowSpan = 0;
-            // obj.children = '~';
-            } else {
-              obj.props.rowSpan = Object.keys(tokenDecimalsMap).length || 2;
-            }
-            return obj;
-          }}
-        />
-        <Column
-          title="Icon"
-          key="Icon"
-          width="12px"
-          render={(text, record) => (
-            <TokenIcon tokenSymbol={record.token} />
-        )}
-          className="columnCenter"
-        />
-
-        <Column
-          title="Token"
-          dataIndex="token"
-          key="token"
-          width="65px"
-          className="columnCenter"
-          render={(text, record) => (
-          record.token.toUpperCase()
-        )}
-        />
-        <Column
-          title="Balance"
-          dataIndex="balance"
-          key="balance"
-          width="80px"
-          filters={[{
-            text: 'Remove empty',
-            value: '0 ETH',
-          }]}
-          onFilter={(value, record) => record.balance !== value}
-        />
-        <Column
-          title={<CurrencyDropdown {...currencyDropdownProps} />}
-          dataIndex="convert"
-          key="convert"
-          width="80px"
-        />
-        <Column
-          width="65px"
-          title="Action"
-          key="action"
-          render={(text, record) => (
-            <span>
-              <a onClick={() => onShowSendToken(record.address, record.token)}>Send</a>
-            </span>
-        )}
-        />
-    </AddrTable > */
   );
 }
 

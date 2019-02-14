@@ -20,7 +20,7 @@ function SendProgress({ sendInProgress, sendError, sendTx, txExplorer }) {
     return (
       <Spin
         spinning
-        style={{ position: 'static' }}
+        style={{ position: 'static', color: '#FF007F' }}
         size="large"
         tip="Sending..."
         indicator={antIcon}

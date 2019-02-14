@@ -47,7 +47,7 @@ function AddressTableFooter(props) {
         loading={addressListLoading}
         error={addressListError}
         disabled={!isComfirmed}
-        popconfirmMsg="Add new address?"
+        popconfirmMsg="Add new address"
         style={{ width: '200px' }}
       />
       <br />
@@ -73,11 +73,9 @@ function AddressTableFooter(props) {
       <br />
       <IconButton
         text="Select Tokens"
-        icon="bars"
+        icon="profile"
         onClick={onShowTokenChooser}
         style={{ width: '200px', margin: '15px' }}
-        // type="primary"
-        // onClick, loading, error, disabled, popconfirmMsg
       />
     </Div>
   );

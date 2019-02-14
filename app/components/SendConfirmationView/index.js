@@ -32,7 +32,7 @@ function SendConfirmationView(props) {
       <Div>
         <Spin
           spinning
-          style={{ position: 'static' }}
+          style={{ position: 'static', color: '#FF007F' }}
           size="large"
           tip="checking transaction...."
           indicator={antIcon}

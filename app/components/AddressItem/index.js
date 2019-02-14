@@ -28,7 +28,7 @@ function AddressItem(props) {
       {address} |
       Balance: {balance}
       {convertedBalance} {convertToName}
-      <button onClick={() => onChangeFrom(address)}>
+      <button onClick={() => onChangeFrom(address)} style={{ color: 'white', 'background-color': '#FF007F', border: '0.5px solid black' }}>
         Send
       </button>
     </div>

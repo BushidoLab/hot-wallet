@@ -21,7 +21,7 @@ const antIcon = <Icon type="loading" style={{ fontSize: 24, position: 'static' }
 function LoadingIndicator() {
   return (
     <Div>
-      <Spin size="large" tip="Hot Wallet" indicator={antIcon} />
+      <Spin size="large" indicator={antIcon} style={{ color: '#FF007F' }} />
     </Div>
   );
 }

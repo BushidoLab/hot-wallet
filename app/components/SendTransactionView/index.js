@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 
 function SendTransactionView({ sendInProgress, sendError, sendTx }) {
   if (sendInProgress) {
-    return <div> sending transaction....</div>;
+    return <div> Sending transaction....</div>;
   }
 
   if (sendError !== false) {

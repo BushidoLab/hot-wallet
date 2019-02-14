@@ -93,7 +93,7 @@ function AddressView(props) {
   return (
     <Spin
       spinning={generateKeystoreLoading}
-      style={{ position: 'static' }}
+      style={{ position: 'static', color: '#FF007F' }}
       size="large"
       indicator={antIcon}
     >
