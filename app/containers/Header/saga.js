@@ -85,7 +85,6 @@ import {
   ASK_FAUCET,
 } from './constants';
 
-import Network from './network';
 const web3 = new Web3(); // eslint-disable-line
 const erc20Contract = web3.eth.contract(erc20Abi);
 
@@ -106,7 +105,7 @@ export function* loadNetwork(action) {
     message.warn('debug mode: online = false in Header/saga.js');
   }
   try {
-    const rpcAddress = online ? Network[action.networkName].rpc : Network['Local RPC'].rpc;
+    const rpcAddress = 'https://mainnet.infura.io/GjiCzFxpQAUkPtDUpKEP';
     if (!rpcAddress) {
       throw new Error(`${action.networkName} network not found`);
     }
