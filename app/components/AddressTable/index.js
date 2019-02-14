@@ -278,7 +278,7 @@ function AddressTable(props) {
 
   return (
     <div>
-      <Card title="Wallet information" style={{ minWidth: '800px' }} bodyStyle={{ backgroundColor: '#f4f4f4' }} headStyle={{ backgroundColor: '#4b4b4b' }}>
+      <Card title="Wallet information" style={{ minWidth: '800px' }} bodyStyle={{ backgroundColor: '#f4f4f4' }} >
         {createTable(completeRowList, currencyDropdownProps)}
       </Card>
       <Button style={{ position: 'relative', bottom: '10px', marginTop: '30px' }}>

@@ -116,7 +116,11 @@ const initialState = fromJS({
       contractAddress: null,
       decimals: 18,
     },
-    // ADD TOKEN INFO HERE TO SHOW DEFAULT ON PAGE LOAD
+    eos: {
+      name: 'EOS',
+      contractAddress: null,
+      decimals: 18,
+    }, // CHANGE THIS TO ACTUAL TOKEN
   },
 });
 
