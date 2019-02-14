@@ -68,15 +68,15 @@ function AddressTableFooter(props) {
         loading={getExchangeRatesLoading}
         error={getExchangeRatesError}
         disabled={!networkReady}
-        style={{ width: '200px' }}
+        style={{ width: '200px', margin: '15px' }}
       />
       <br />
-      <IconButton
+      {/* <IconButton
         text="Select Tokens"
         icon="profile"
         onClick={onShowTokenChooser}
         style={{ width: '200px', margin: '15px' }}
-      />
+      /> */}
     </Div>
   );
 }
