@@ -7,6 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Card, Button } from 'antd';
+import styled from 'styled-components';
 
 import CurrencyDropdown from 'components/CurrencyDropdown';
 import TokenIcon from 'components/TokenIcon';
@@ -159,10 +160,11 @@ function createTable(data, props) {
   const currencyDropdownProps = props;
 
   // Style objects
+  const cardStyle = { backgroundColor: '#252729', color: "#e8e8e8" };
   const cardGridStyle = { width: '40%', padding: '0px', marginLeft: '7%' };
-  const cardGridStyleSm = { width: '15%', padding: '0px' };
-  const headerStyles = { fontSize: '14px', paddingTop: 0, margin: 0, fontWeight: 900 };
-  const tableHeader = { backgroundColor: '#e8e8e8', border: '1px solid gray' };
+  const cardGridStyleSm = { width: '15%', padding: '0px', backgroundColor: '#3B3D3E' };
+  const headerStyles = { fontSize: '14px', paddingTop: 0, margin: 0, fontWeight: 900, color: '#e8e8e8' };
+  const tableHeader = { backgroundColor: '#111', border: '1px solid gray' };
 
   for (let i = 0; i < data.length; i += 1) {
     const address = data[i].address;
@@ -206,22 +208,22 @@ function createTable(data, props) {
       table.push(
         <span>
           <Card.Grid type="inner" style={cardGridStyle} key={key}>
-            <Card>
+            <Card style={cardStyle}>
               {address}
             </Card>
           </Card.Grid>
           <Card.Grid type="inner" style={cardGridStyleSm}>
-            <Card>
+            <Card style={cardStyle}>
               {icon.toUpperCase()} <TokenIcon tokenSymbol={icon} />
             </Card>
           </Card.Grid>
           <Card.Grid type="inner" style={cardGridStyleSm}>
-            <Card>
+            <Card style={cardStyle}>
               {balance}
             </Card>
           </Card.Grid>
           <Card.Grid type="inner" style={cardGridStyleSm}>
-            <Card>
+            <Card style={cardStyle}>
               {convert}
             </Card>
           </Card.Grid>
@@ -231,22 +233,22 @@ function createTable(data, props) {
       table.push(
         <span>
           <Card.Grid type="inner" style={cardGridStyle} key={key}>
-            <Card>
+            <Card style={cardStyle}>
               {address}
             </Card>
           </Card.Grid>
           <Card.Grid type="inner" style={cardGridStyleSm}>
-            <Card>
+            <Card style={cardStyle}>
               {icon.toUpperCase()} <TokenIcon tokenSymbol={icon} />
             </Card>
           </Card.Grid>
           <Card.Grid type="inner" style={cardGridStyleSm}>
-            <Card>
+            <Card style={cardStyle}>
               {balance}
             </Card>
           </Card.Grid>
           <Card.Grid type="inner" style={cardGridStyleSm}>
-            <Card>
+            <Card style={cardStyle}>
               {convert}
             </Card>
           </Card.Grid>
@@ -256,6 +258,19 @@ function createTable(data, props) {
   }
   return table;
 }
+
+const Div = styled.div`
+  display: block;
+  min-width: 800px;
+  margin: '50px';
+`;
+const H1 = styled.h1`
+  color: #e8e8e8;
+  font-weight: 500;
+`;
+const Margin = styled.div`
+  margin: 20px;
+`;
 
 function AddressTable(props) {
   const {
@@ -278,12 +293,10 @@ function AddressTable(props) {
 
   return (
     <div>
-      <Card title="Wallet information" style={{ minWidth: '800px' }} bodyStyle={{ backgroundColor: '#f4f4f4' }} >
-        {createTable(completeRowList, currencyDropdownProps)}
-      </Card>
-      <Button style={{ position: 'relative', bottom: '10px', marginTop: '30px' }}>
-        <div role="presentation" onClick={() => onShowSendToken(address, icon)}>Send</div>
-      </Button>
+        <H1>Wallet Information</H1>
+        <Div>
+          {createTable(completeRowList, currencyDropdownProps)}
+        </Div>
     </div>
   );
 }

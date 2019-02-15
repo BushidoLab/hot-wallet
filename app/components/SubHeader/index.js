@@ -25,6 +25,40 @@ const Div = styled.div`
   }
 `;
 
+const splitAddrToRows = (tokenDecimalsMap, tokenMapIN, address, startKey) => {
+  let key = startKey;
+  const tokenMap = tokenMapIN;
+  const index = tokenMap.index;
+  delete tokenMap.index;
+
+  return Object.keys(tokenMap).map((token) => {
+    const sameAddressRow = {};
+    sameAddressRow.index = index;
+    sameAddressRow.key = key;
+    key += 1;
+    sameAddressRow.token = token;
+    sameAddressRow.address = address;
+    const balance = tokenMap[token].balance;
+    const decimals = tokenDecimalsMap[token];
+    sameAddressRow.balance = balance ? balance.div((10 ** decimals).toString()).toString(10) : 'n/a';
+    // sameAddressRow.convert = '';
+    return sameAddressRow;
+  });
+};
+
+const transformList = (addressMap, tokenDecimalsMap, showTokens) => { //eslint-disable-line
+  // const showTokens = true;
+  let iKey = 1;
+  const list = Object.keys(addressMap).map((address) => {
+    const tokenMap = addressMap[address];
+    const sameAddressList = splitAddrToRows(tokenDecimalsMap, tokenMap, address, iKey);
+
+    iKey += sameAddressList.length;
+    return sameAddressList;
+  });
+  return [].concat(...list); // flaten array
+};
+
 function SubHeader(props) {
   const {
     onGenerateWallet, onShowRestoreWallet, isComfirmed, onCloseWallet,
@@ -33,7 +67,8 @@ function SubHeader(props) {
     networkReady, checkingBalances, checkingBalancesError, onCheckBalances,
     onGetExchangeRates, onShowTokenChooser,
     getExchangeRatesLoading, getExchangeRatesError, checkingBalanceDoneTime,
-    addressListMsg, getExchangeRatesDoneTime,
+    addressListMsg, getExchangeRatesDoneTime, onShowSendToken,
+    addressMap, tokenDecimalsMap,
   } = props;
 
   const addressTableFooterProps = {
@@ -55,7 +90,13 @@ function SubHeader(props) {
     getExchangeRatesError,
 
     onShowTokenChooser,
+    onShowSendToken,
+
+    addressMap,
+    tokenDecimalsMap,
   };
+
+  console.log(tokenDecimalsMap);
 
   const lockButtonProps = { onLockWallet, password, onUnlockWallet };
   const noWalletSubHeader = [
@@ -77,6 +118,8 @@ function SubHeader(props) {
   const borderStyles = { borderRight: '0.25px solid black', borderLeft: '0.25px solid black', color: 'white' };
   const caretStyles = { marginLeft: '10px', marginRight: '0px' };
 
+  const rowList = transformList(addressMap, tokenDecimalsMap, true);
+
   const existingWalletSubHeader = [
     <Menu
       mode="horizontal"
@@ -97,6 +140,9 @@ function SubHeader(props) {
       <SubMenu title={<span>Addresses<Icon type="caret-down" style={caretStyles} /></span>} style={{ borderRight: '0.25px solid black', color: 'white' }}>
         <AddressTableFooter {...addressTableFooterProps} />
       </SubMenu>
+      <Menu.Item title="Send" style={borderStyles}>
+          <div role="presentation" onClick={() => onShowSendToken(rowList[0].address, rowList[0].token)}>Send</div>
+      </Menu.Item>
     </Menu>,
   ];
 
@@ -152,6 +198,8 @@ SubHeader.propTypes = {
   getExchangeRatesDoneTime: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   getExchangeRatesLoading: PropTypes.bool,
   getExchangeRatesError: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.bool]),
+
+  onShowSendToken: PropTypes.func,
 };
 
 export default SubHeader;

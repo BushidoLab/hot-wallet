@@ -30,7 +30,7 @@ function CurrencyDropdown(props) {
 
   return (
     <Dropdown overlay={convertToMenu}>
-      <span style={{ fontWeight: 900, color: 'black' }}>
+      <span style={{ fontWeight: 900, color: '#e8e8e8' }}>
         {convertToSymbol === 'none' ? 'Convert' : `${convertToSymbol}`}<Icon type="down" />
       </span>
     </Dropdown>
