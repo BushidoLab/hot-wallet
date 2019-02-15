@@ -96,8 +96,6 @@ function SubHeader(props) {
     tokenDecimalsMap,
   };
 
-  console.log(tokenDecimalsMap);
-
   const lockButtonProps = { onLockWallet, password, onUnlockWallet };
   const noWalletSubHeader = [
     <Button key="new_wallet" type="primary" size="large" onClick={onGenerateWallet} style={{ color: 'white', backgroundColor: '#FF007F', border: '0.5px solid black' }}>
@@ -118,7 +116,11 @@ function SubHeader(props) {
   const borderStyles = { borderRight: '0.25px solid black', borderLeft: '0.25px solid black', color: 'white' };
   const caretStyles = { marginLeft: '10px', marginRight: '0px' };
 
-  const rowList = transformList(addressMap, tokenDecimalsMap, true);
+  let rowList;
+  if (addressMap !== null) {
+    rowList = transformList(addressMap, tokenDecimalsMap, true);
+  }
+
 
   const existingWalletSubHeader = [
     <Menu
@@ -140,9 +142,19 @@ function SubHeader(props) {
       <SubMenu title={<span>Addresses<Icon type="caret-down" style={caretStyles} /></span>} style={{ borderRight: '0.25px solid black', color: 'white' }}>
         <AddressTableFooter {...addressTableFooterProps} />
       </SubMenu>
-      <Menu.Item title="Send" style={borderStyles}>
-          <div role="presentation" onClick={() => onShowSendToken(rowList[0].address, rowList[0].token)}>Send</div>
-      </Menu.Item>
+      <SubMenu title={<span>Transfer <Icon type="caret-down" style={caretStyles} /></span>} style={borderStyles}>
+        <Menu.Item title="Send" style={menuStyles} disabled>
+            <Button 
+              type="default" 
+              icon="double-right" 
+              size="large" 
+              onClick={() => onShowSendToken(rowList[0].address, rowList[0].token)} 
+              style={{ width: '200px', marginLeft: '10px', marginRight: '10px' }}
+            >
+              Send
+            </Button>
+        </Menu.Item>
+      </SubMenu>
     </Menu>,
   ];
 
