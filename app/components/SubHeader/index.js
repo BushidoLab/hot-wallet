@@ -149,7 +149,7 @@ function SubHeader(props) {
               icon="double-right" 
               size="large" 
               onClick={() => onShowSendToken(rowList[0].address, rowList[0].token)} 
-              style={{ width: '200px', marginLeft: '10px', marginRight: '10px' }}
+              style={{ width: '200px', marginLeft: '10px', marginRight: '10px', marginTop: '5px' }}
             >
               Send
             </Button>
