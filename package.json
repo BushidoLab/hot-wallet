@@ -249,9 +249,7 @@
     "styled-components": "2.0.0",
     "warning": "3.0.0",
     "web3": "0.20.7",
-    "whatwg-fetch": "2.0.4"
-  },
-  "devDependencies": {
+    "whatwg-fetch": "2.0.4",
     "babel-cli": "6.26.0",
     "babel-core": "6.26.3",
     "babel-eslint": "7.2.3",
@@ -305,5 +303,8 @@
     "webpack-dev-middleware": "1.11.0",
     "webpack-hot-middleware": "2.23.1",
     "webpack-monitor": "^1.0.13"
+  },
+  "devDependencies": {
+
   }
 }
