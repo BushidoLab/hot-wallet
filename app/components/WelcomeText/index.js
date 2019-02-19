@@ -25,7 +25,7 @@ function WelcomeText() {
     <div>
       <H1>Welcome to Hot Wallet <br />To begin, create or restore Ethereum wallet<br /></H1>
       <H2>
-        Connection to Ethereum network is made via infura / local node. <br />
+        Connection to Ethereum network is made via infura <br />
         Keystore is encrypted using the password. When the wallet is locked, you can only view balances. <br />
         We recommend turning off browser extensions and if you are using chrome, running this website on incognito mode. <br />
         This is to avoid any chance of malicious attacks from third party plugins

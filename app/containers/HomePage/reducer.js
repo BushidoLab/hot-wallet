@@ -116,11 +116,11 @@ const initialState = fromJS({
       contractAddress: null,
       decimals: 18,
     },
-    eos: {
-      name: 'EOS',
-      contractAddress: null,
+    tge: {
+      name: 'Token Generating Event',
+      contractAddress: '0x8d53Be00e9Ee56bF4B9267544D1671C0e1f25F35',
       decimals: 18,
-    }, // CHANGE THIS TO ACTUAL TOKEN
+    },
   },
 });
 

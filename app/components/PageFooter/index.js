@@ -26,7 +26,7 @@ function PageFooter() {
       <Row>
         <Col sm={12} xs={24}>
           {'Hot Wallet - '}
-          Created using: eth-lightwallet, React.js, Ant design by <a href="https://www.bushidolab.com/">Bushido Lab</a>
+          Created using: eth-lightwallet, React.js and Ant design by <a href="https://www.bushidolab.com/">Bushido Lab</a>
         </Col>
 
       </Row>
