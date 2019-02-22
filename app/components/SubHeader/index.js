@@ -26,6 +26,7 @@ const Div = styled.div`
 `;
 
 const splitAddrToRows = (tokenDecimalsMap, tokenMapIN, address, startKey) => {
+  console.log(tokenDecimalsMap);
   let key = startKey;
   const tokenMap = tokenMapIN;
   const index = tokenMap.index;
@@ -42,6 +43,7 @@ const splitAddrToRows = (tokenDecimalsMap, tokenMapIN, address, startKey) => {
     const decimals = tokenDecimalsMap[token];
     sameAddressRow.balance = balance ? balance.div((10 ** decimals).toString()).toString(10) : 'n/a';
     // sameAddressRow.convert = '';
+    console.log(sameAddressRow);
     return sameAddressRow;
   });
 };
@@ -144,15 +146,15 @@ function SubHeader(props) {
       </SubMenu>
       <SubMenu title={<span>Transfer <Icon type="caret-down" style={caretStyles} /></span>} style={borderStyles}>
         <Menu.Item title="Send" style={menuStyles} disabled>
-            <Button 
-              type="default" 
-              icon="double-right" 
-              size="large" 
-              onClick={() => onShowSendToken(rowList[0].address, rowList[0].token)} 
-              style={{ width: '200px', marginLeft: '10px', marginRight: '10px', marginTop: '5px' }}
-            >
-              Send
-            </Button>
+          <Button
+            type="default"
+            icon="double-right"
+            size="large"
+            onClick={() => onShowSendToken(rowList[0].address, rowList[0].token)}
+            style={{ width: '200px', marginLeft: '10px', marginRight: '10px', marginTop: '5px' }}
+          >
+            Send
+          </Button>
         </Menu.Item>
       </SubMenu>
     </Menu>,
@@ -210,8 +212,6 @@ SubHeader.propTypes = {
   getExchangeRatesDoneTime: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   getExchangeRatesLoading: PropTypes.bool,
   getExchangeRatesError: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.bool]),
-
-  onShowSendToken: PropTypes.func,
 };
 
 export default SubHeader;

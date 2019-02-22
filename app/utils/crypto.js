@@ -14,6 +14,7 @@ export default function generateString(len) {
     return String.fromCharCode.apply(String, array); // eslint-disable-line
   }
   let tmp = genString();
+
   while (tmp.length < MINLEN) {
     /* unlikely too loop more than once.. */
     tmp += genString();

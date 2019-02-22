@@ -35,7 +35,7 @@ function AddressTableFooter(props) {
     getExchangeRatesLoading,
     getExchangeRatesError,
 
-    onShowTokenChooser,
+    // onShowTokenChooser,
   } = props;
 
   return (

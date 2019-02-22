@@ -23,6 +23,7 @@ function AddressItem(props) {
   const convertedBalance = (balance !== 'n/a' && rate) ? ethData.get('balance').div(Ether).times(rate).toFixed(2).toString(10) : '';
   const convertToName = exchangeRates.getIn([convertTo, 'name']);
 
+
   return (
     <div>
       {address} |

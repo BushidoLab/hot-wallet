@@ -160,12 +160,11 @@ function createTable(data, props) {
   const currencyDropdownProps = props;
 
   // Style objects
-  const cardStyle = { backgroundColor: '#252729', color: "#e8e8e8" };
+  const cardStyle = { backgroundColor: '#252729', color: '#e8e8e8' };
   const cardGridStyle = { width: '40%', padding: '0px', marginLeft: '7%' };
   const cardGridStyleSm = { width: '15%', padding: '0px', backgroundColor: '#3B3D3E' };
   const headerStyles = { fontSize: '14px', paddingTop: 0, margin: 0, fontWeight: 900, color: '#e8e8e8' };
   const tableHeader = { backgroundColor: '#111', border: '1px solid gray' };
-
   for (let i = 0; i < data.length; i += 1) {
     const address = data[i].address;
     const icon = data[i].token;
@@ -176,7 +175,13 @@ function createTable(data, props) {
     if (data[i].convert) {
       convert = data[i].convert;
     } else {
-      convert = 'N/A';
+      // Converts TGE into half of ETH value(
+      if (data[0].convert == 0) {
+        convert = '0';
+      } else {
+        const ethRatio = (parseInt(data[0].balance, 10) / parseInt(data[0].convert, 10));
+        convert = (ethRatio / 2).toString();
+      }
     }
 
     if (table.length === 0) {
@@ -268,35 +273,35 @@ const H1 = styled.h1`
   color: #e8e8e8;
   font-weight: 500;
 `;
-const Margin = styled.div`
-  margin: 20px;
-`;
+// const Margin = styled.div`
+//   margin: 20px;
+// `;
 
 function AddressTable(props) {
   const {
     addressMap,
     tokenDecimalsMap,
-    onShowSendToken,
+    // onShowSendToken,
     exchangeRates,
     onSelectCurrency,
     convertTo,
   } = props;
 
   const currencyDropdownProps = { exchangeRates, onSelectCurrency, convertTo };
-
+  console.log('exchangeRates', exchangeRates);
   const rowList = transformList(addressMap, tokenDecimalsMap, true);
   const completeRowList = addConvertRates(rowList, exchangeRates, convertTo);
-  const info = completeRowList;
 
-  const address = info[0].address;
-  const icon = info[0].token;
+  // const info = completeRowList;
+  // const address = info[0].address;
+  // const icon = info[0].token;
 
   return (
     <div>
-        <H1>Wallet Information</H1>
-        <Div>
-          {createTable(completeRowList, currencyDropdownProps)}
-        </Div>
+      <H1>Wallet Information</H1>
+      <Div>
+        {createTable(completeRowList, currencyDropdownProps)}
+      </Div>
     </div>
   );
 }

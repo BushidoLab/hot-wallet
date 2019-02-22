@@ -55,6 +55,9 @@ function Header(props) {
     loading,
     error,
     blockNumber,
+    // availableNetworks,
+    // networkName,
+    // onLoadNetwork,
    } = props;
 
   const networkIndicatorProps = {
@@ -62,6 +65,12 @@ function Header(props) {
     error,
     blockNumber,
   };
+
+  // const networkMenuProps = {
+  //   availableNetworks,
+  //   networkName,
+  //   onLoadNetwork,
+  // };
 
   return (
     <HeaderWrapped className="clearfix">
