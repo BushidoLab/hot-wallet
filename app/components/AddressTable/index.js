@@ -6,7 +6,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card, Button } from 'antd';
+import { Card } from 'antd';
 import styled from 'styled-components';
 
 import CurrencyDropdown from 'components/CurrencyDropdown';
@@ -288,7 +288,6 @@ function AddressTable(props) {
   } = props;
 
   const currencyDropdownProps = { exchangeRates, onSelectCurrency, convertTo };
-  console.log('exchangeRates', exchangeRates);
   const rowList = transformList(addressMap, tokenDecimalsMap, true);
   const completeRowList = addConvertRates(rowList, exchangeRates, convertTo);
 

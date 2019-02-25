@@ -68,7 +68,7 @@ import {
   getExchangeRatesError,
 
   checkFaucet,
-  checkFaucetSuccess,
+  // checkFaucetSuccess,
   checkFaucetError,
   askFaucetSuccess,
   askFaucetError,
@@ -432,7 +432,7 @@ export function* checkFaucetApi() {
       { message: { serviceReady: true } };
 
     if (result.message.serviceReady) {
-      yield put(checkFaucetSuccess());
+      // yield put(checkFaucetSuccess());W
     } else {
       yield put(checkFaucetError('faucet not ready'));
     }

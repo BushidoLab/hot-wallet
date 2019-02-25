@@ -16,6 +16,7 @@ function AddressList({ addressList, onChangeFrom, exchangeRates, convertTo }) {
   // console.log(addressList.toJS().map(([address, data]) => (data)));
   // const listObject = addressList.toJS();
   if (addressList) {
+    console.log('===========================', addressList);
     mainList = addressList.entrySeq().map(([address, data]) => (
       // if (key ==='lastIndex') return null;
       <AddressItem

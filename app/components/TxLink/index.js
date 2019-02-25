@@ -14,7 +14,7 @@ const Span = styled.span`
 
 function TxLink(props) {
   const { tx, explorer } = props;
-  console.log('href: ', explorer, tx);
+  // console.log('href: ', explorer, tx);
   if (explorer) {
     return (
       <a href={`https://etherscan.io/tx/${tx}`} target="_blank" rel="noopener">

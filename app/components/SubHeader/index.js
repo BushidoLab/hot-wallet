@@ -26,7 +26,6 @@ const Div = styled.div`
 `;
 
 const splitAddrToRows = (tokenDecimalsMap, tokenMapIN, address, startKey) => {
-  console.log(tokenDecimalsMap);
   let key = startKey;
   const tokenMap = tokenMapIN;
   const index = tokenMap.index;
@@ -43,7 +42,6 @@ const splitAddrToRows = (tokenDecimalsMap, tokenMapIN, address, startKey) => {
     const decimals = tokenDecimalsMap[token];
     sameAddressRow.balance = balance ? balance.div((10 ** decimals).toString()).toString(10) : 'n/a';
     // sameAddressRow.convert = '';
-    console.log(sameAddressRow);
     return sameAddressRow;
   });
 };

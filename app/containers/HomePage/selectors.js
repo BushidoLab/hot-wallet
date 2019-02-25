@@ -6,7 +6,6 @@ import { createSelector } from 'reselect';
 
 const selectHome = (state) => state.get('home');
 
-
 const makeSelectIsShowGenerateWallet = () => createSelector(
   selectHome,
   (homeState) => homeState.get('isShowGenerateWallet')

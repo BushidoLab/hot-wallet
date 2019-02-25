@@ -28,7 +28,9 @@ function NetworkMenu(props) {
   let options;
   if (availableNetworks) {
     options = availableNetworks.map((network) =>
-      <StyledMenuItem key={network}><a tabIndex="0" role="button" onClick={() => onLoadNetwork(network)}>{network}</a></StyledMenuItem>
+      (<StyledMenuItem key={network} >
+        <a tabIndex="0" role="button" onClick={() => onLoadNetwork(network)}>Refresh Provider</a>
+      </StyledMenuItem>)
     );
   }
 
@@ -38,7 +40,7 @@ function NetworkMenu(props) {
       defaultSelectedKeys={[networkName]}
       selectedKeys={[networkName]}
     >
-      <StyledMenuItem disabled key="title">Select ETH network</StyledMenuItem>
+      {/* <StyledMenuItem disabled key="title"></StyledMenuItem> */}
       {options}
     </Menu>
   );
