@@ -20,7 +20,7 @@ const Img = styled.img`
 function TokenIcon({ tokenSymbol, size = 24 }) {
   // const { tokenSymbol } = props;
 
-  const iconPath = `token-icons/${tokenSymbol}.png`;
+  const iconPath = `token-icons/eth.png`;
 
   return (
     <span>

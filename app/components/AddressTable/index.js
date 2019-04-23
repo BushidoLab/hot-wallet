@@ -12,6 +12,12 @@ import styled from 'styled-components';
 import CurrencyDropdown from 'components/CurrencyDropdown';
 import TokenIcon from 'components/TokenIcon';
 
+// try {
+//   const requestURL = 'https://api.coinmarketcap.com/v1/ticker/?convert=USD';
+//   const apiRates = yield call(request, requestURL);
+//   console.log(apiRates)
+// }
+
 // const { Column } = Table;
 // import { LocaleProvider } from 'antd';
 // import { FormattedMessage } from 'react-intl';
@@ -142,8 +148,8 @@ const addConvertRates = (rowList, exchangeRates, convertTo) =>
   rowList.map((row) => {
     try {
       // const convertToSymbol = convertTo.slice(4).toUpperCase();
-      if (`eth_${row.token}` === convertTo) {
-        row.convert = row.balance; // eslint-disable-line
+      if (row.token === 'eth') {
+        row.convert = exchangeRates.eth.rate; // eslint-disable-line
       } else {
         const convertRate = getConvertRate(exchangeRates, row.token, convertTo);
         row.convert = convertRate.times(row.balance).round(5).toString(10); // eslint-disable-line
@@ -158,29 +164,32 @@ const addConvertRates = (rowList, exchangeRates, convertTo) =>
 function createTable(data, props) {
   const table = [];
   const currencyDropdownProps = props;
-
   // Style objects
   const cardStyle = { backgroundColor: '#252729', color: '#e8e8e8' };
   const cardGridStyle = { width: '40%', padding: '0px', marginLeft: '7%' };
   const cardGridStyleSm = { width: '15%', padding: '0px', backgroundColor: '#3B3D3E' };
   const headerStyles = { fontSize: '14px', paddingTop: 0, margin: 0, fontWeight: 900, color: '#e8e8e8' };
   const tableHeader = { backgroundColor: '#111', border: '1px solid gray' };
+
   for (let i = 0; i < data.length; i += 1) {
     const address = data[i].address;
     const icon = data[i].token;
     const balance = data[i].balance;
+    // const balance = 100;
     const key = data[i].key;
-
     let convert;
-    if (data[i].convert) {
-      convert = data[i].convert;
+    if (balance == 0) {
+      convert = '0';
     } else {
-      // Converts TGE into half of ETH value(
-      if (data[0].convert == 0) {
-        convert = '0';
+      if (data[i].convert) {
+        convert = data[i].convert * balance;
       } else {
-        const ethRatio = (parseInt(data[0].balance, 10) / parseInt(data[0].convert, 10));
-        convert = (ethRatio / 2).toString();
+        // Converts TGE into half of ETH value(
+        if (data[i].token == 'tge') {
+          convert = data[0].convert * 0.5 * balance;
+        } else if (data[i].token == 'peacebit') {
+          convert = '0'; // Change conversion rate of peacebit here
+        }
       }
     }
 
@@ -294,7 +303,6 @@ function AddressTable(props) {
   // const info = completeRowList;
   // const address = info[0].address;
   // const icon = info[0].token;
-
   return (
     <div>
       <H1>Wallet Information</H1>

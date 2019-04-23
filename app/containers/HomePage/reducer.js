@@ -121,6 +121,11 @@ const initialState = fromJS({
       contractAddress: '0x8d53Be00e9Ee56bF4B9267544D1671C0e1f25F35',
       decimals: 18,
     },
+    peacebit: {
+      name: 'PeaceBit Token',
+      contractAddress: '0xe907c36807e9da323d005d30ce6eb0aa9e3eb4c3',
+      decimals: 18,
+    }
   },
 });
 
