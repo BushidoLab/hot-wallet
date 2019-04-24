@@ -30,21 +30,13 @@ const Output = {
 */
 const ratesMaps =
   {
-    'https://api.coinmarketcap.com/v1/ticker/ethereum/?convert=EUR': {
+    'https://api.coinmarketcap.com/v1/ticker/ethereum/?convert=USD': {
       eth_eth: { path: { const: 1 }, isInverse: false, name: 'ETH' },
       eth_tge: { path: { symbol: 'eth', key: 'price_tge' }, name: 'TGE' },
       eth_usd: { path: { symbol: 'eth', key: 'price_usd' }, name: 'USD' },
       eth_btc: { path: { symbol: 'eth', key: 'price_btc' }, name: 'BTC' },
     },
-
-    'https://api.coinmarketcap.com/v1/ticker/?convert=EUR': {
-      eth_eth: { path: { const: 1 }, name: 'ETH' },
-      eth_tge: { path: { symbol: 'eth', key: 'price_tge' }, name: 'TGE' },
-      eth_usd: { path: { symbol: 'eth', key: 'price_usd' }, name: 'USD' },
-      eth_btc: { path: { symbol: 'eth', key: 'price_btc' }, name: 'BTC' },
-    },
   };
-
 
 /**
  * Adds path for every token in tokenList,
@@ -78,13 +70,24 @@ const addPathsForTokens = (ratesMap, tokenList) => {
  */
 export default function extractRates(apiRates, requestUrl, tokenList) {
   let ratesMap = ratesMaps[requestUrl];
+
   if (!ratesMap) {
-    // No map found
-    return {};
+    let ethRate;
+    apiRates.forEach(rate => {
+      if (rate.id === 'ethereum') {
+        ethRate = rate.price_usd;
+      }
+    })
+    let rates = {
+      eth: {
+        name: 'USD',
+        rate: ethRate,
+      }
+    }
+    return rates;
   }
   ratesMap = addPathsForTokens(ratesMap, tokenList);
   const rates = {};
-
   Object.keys(ratesMap).forEach((key) => {
     const rate1 = getRate(apiRates, ratesMap[key].path);
     // 2 conversion might be needed to get eth_token rate:

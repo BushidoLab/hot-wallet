@@ -315,7 +315,6 @@ function* checkTokensBalances(address) {
     const symbol = tokenList[i];
     yield checkTokenBalance(address, symbol);
   }
-  // console.log(tokenMap);
 }
 
 export function* checkAllBalances() {
@@ -381,7 +380,7 @@ function* watchPollData() {
  */
 export function* getRates() {
   // const requestURL = 'https://api.coinmarketcap.com/v1/ticker/ethereum/?convert=EUR';
-  const requestURL = 'https://api.coinmarketcap.com/v1/ticker/?convert=EUR';
+  const requestURL = 'https://api.coinmarketcap.com/v1/ticker/?convert=USD';
   try {
     let dummyRates = [{ // for testin in online = false mode
       id: 'ethereum',
@@ -409,8 +408,6 @@ export function* getRates() {
 
     // Call our request helper (see 'utils/request')
     const apiRates = online ? (yield call(request, requestURL)) : dummyRates;
-
-    // console.log(apiPrices);
 
     const tokenList = yield select(makeSelectTokenInfoList());
 
