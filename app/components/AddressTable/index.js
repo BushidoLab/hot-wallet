@@ -184,9 +184,9 @@ function createTable(data, props) {
       if (data[i].convert) {
         convert = data[i].convert * balance;
       } else {
-        // Converts TGE into half of ETH value(
+        // Converts TGE into a tenth of ETH value(
         if (data[i].token == 'tge') {
-          convert = data[0].convert * 0.5 * balance;
+          convert = data[0].convert * 0.1 * balance;
         } else if (data[i].token == 'peacebit') {
           convert = '0'; // Change conversion rate of peacebit here
         }
