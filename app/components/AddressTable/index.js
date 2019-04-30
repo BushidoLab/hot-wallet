@@ -1,16 +1,16 @@
 /**
-*
-* AddressTable
-*
-*/
+ *
+ * AddressTable
+ *
+ */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Card } from 'antd';
-import styled from 'styled-components';
+import React from "react";
+import PropTypes from "prop-types";
+import { Card } from "antd";
+import styled from "styled-components";
 
-import CurrencyDropdown from 'components/CurrencyDropdown';
-import TokenIcon from 'components/TokenIcon';
+import CurrencyDropdown from "components/CurrencyDropdown";
+import TokenIcon from "components/TokenIcon";
 
 // try {
 //   const requestURL = 'https://api.coinmarketcap.com/v1/ticker/?convert=USD';
@@ -62,7 +62,7 @@ const splitAddrToRows = (tokenDecimalsMap, tokenMapIN, address, startKey) => {
   const index = tokenMap.index;
   delete tokenMap.index;
 
-  return Object.keys(tokenMap).map((token) => {
+  return Object.keys(tokenMap).map(token => {
     const sameAddressRow = {};
     sameAddressRow.index = index;
     sameAddressRow.key = key;
@@ -71,7 +71,9 @@ const splitAddrToRows = (tokenDecimalsMap, tokenMapIN, address, startKey) => {
     sameAddressRow.address = address;
     const balance = tokenMap[token].balance;
     const decimals = tokenDecimalsMap[token];
-    sameAddressRow.balance = balance ? balance.div((10 ** decimals).toString()).toString(10) : 'n/a';
+    sameAddressRow.balance = balance
+      ? balance.div((10 ** decimals).toString()).toString(10)
+      : "n/a";
     // sameAddressRow.convert = '';
     return sameAddressRow;
   });
@@ -106,12 +108,18 @@ const splitAddrToRows = (tokenDecimalsMap, tokenMapIN, address, startKey) => {
     convert: '13 USD',
   },
 ] */
-const transformList = (addressMap, tokenDecimalsMap, showTokens) => { //eslint-disable-line
+const transformList = (addressMap, tokenDecimalsMap, showTokens) => {
+  //eslint-disable-line
   // const showTokens = true;
   let iKey = 1;
-  const list = Object.keys(addressMap).map((address) => {
+  const list = Object.keys(addressMap).map(address => {
     const tokenMap = addressMap[address];
-    const sameAddressList = splitAddrToRows(tokenDecimalsMap, tokenMap, address, iKey);
+    const sameAddressList = splitAddrToRows(
+      tokenDecimalsMap,
+      tokenMap,
+      address,
+      iKey
+    );
 
     iKey += sameAddressList.length;
     return sameAddressList;
@@ -145,14 +153,17 @@ const getConvertRate = (exchangeRates, from, to) => {
  * @return {Array} array as data for table, see example above
  */
 const addConvertRates = (rowList, exchangeRates, convertTo) =>
-  rowList.map((row) => {
+  rowList.map(row => {
     try {
       // const convertToSymbol = convertTo.slice(4).toUpperCase();
-      if (row.token === 'eth') {
+      if (row.token === "eth") {
         row.convert = exchangeRates.eth.rate; // eslint-disable-line
       } else {
         const convertRate = getConvertRate(exchangeRates, row.token, convertTo);
-        row.convert = convertRate.times(row.balance).round(5).toString(10); // eslint-disable-line
+        row.convert = convertRate
+          .times(row.balance)
+          .round(5)
+          .toString(10); // eslint-disable-line
       }
       return row;
     } catch (err) {
@@ -165,11 +176,21 @@ function createTable(data, props) {
   const table = [];
   const currencyDropdownProps = props;
   // Style objects
-  const cardStyle = { backgroundColor: '#252729', color: '#e8e8e8' };
-  const cardGridStyle = { width: '40%', padding: '0px', marginLeft: '7%' };
-  const cardGridStyleSm = { width: '15%', padding: '0px', backgroundColor: '#3B3D3E' };
-  const headerStyles = { fontSize: '14px', paddingTop: 0, margin: 0, fontWeight: 900, color: '#e8e8e8' };
-  const tableHeader = { backgroundColor: '#111', border: '1px solid gray' };
+  const cardStyle = { backgroundColor: "#252729", color: "#e8e8e8" };
+  const cardGridStyle = { width: "40%", padding: "0px", marginLeft: "7%" };
+  const cardGridStyleSm = {
+    width: "15%",
+    padding: "0px",
+    backgroundColor: "#3B3D3E"
+  };
+  const headerStyles = {
+    fontSize: "14px",
+    paddingTop: 0,
+    margin: 0,
+    fontWeight: 900,
+    color: "#e8e8e8"
+  };
+  const tableHeader = { backgroundColor: "#111", border: "1px solid gray" };
 
   for (let i = 0; i < data.length; i += 1) {
     const address = data[i].address;
@@ -179,16 +200,17 @@ function createTable(data, props) {
     const key = data[i].key;
     let convert;
     if (balance == 0) {
-      convert = '0';
+      convert = "0";
     } else {
       if (data[i].convert) {
         convert = data[i].convert * balance;
       } else {
         // Converts TGE into a tenth of ETH value(
-        if (data[i].token == 'tge') {
-          convert = data[0].convert * 0.1 * balance;
-        } else if (data[i].token == 'peacebit') {
-          convert = '0'; // Change conversion rate of peacebit here
+        if (data[i].token == "tge") {
+          // convert = data[0].convert * 0.1 * balance;
+          convert = "0"; // Change conversion rate of tge here
+        } else if (data[i].token == "peacebit") {
+          convert = "0"; // Change conversion rate of peacebit here
         }
       }
     }
@@ -222,9 +244,7 @@ function createTable(data, props) {
       table.push(
         <span>
           <Card.Grid type="inner" style={cardGridStyle} key={key}>
-            <Card style={cardStyle}>
-              {address}
-            </Card>
+            <Card style={cardStyle}>{address}</Card>
           </Card.Grid>
           <Card.Grid type="inner" style={cardGridStyleSm}>
             <Card style={cardStyle}>
@@ -232,14 +252,10 @@ function createTable(data, props) {
             </Card>
           </Card.Grid>
           <Card.Grid type="inner" style={cardGridStyleSm}>
-            <Card style={cardStyle}>
-              {balance}
-            </Card>
+            <Card style={cardStyle}>{balance}</Card>
           </Card.Grid>
           <Card.Grid type="inner" style={cardGridStyleSm}>
-            <Card style={cardStyle}>
-              {convert}
-            </Card>
+            <Card style={cardStyle}>{convert}</Card>
           </Card.Grid>
         </span>
       );
@@ -247,9 +263,7 @@ function createTable(data, props) {
       table.push(
         <span>
           <Card.Grid type="inner" style={cardGridStyle} key={key}>
-            <Card style={cardStyle}>
-              {address}
-            </Card>
+            <Card style={cardStyle}>{address}</Card>
           </Card.Grid>
           <Card.Grid type="inner" style={cardGridStyleSm}>
             <Card style={cardStyle}>
@@ -257,14 +271,10 @@ function createTable(data, props) {
             </Card>
           </Card.Grid>
           <Card.Grid type="inner" style={cardGridStyleSm}>
-            <Card style={cardStyle}>
-              {balance}
-            </Card>
+            <Card style={cardStyle}>{balance}</Card>
           </Card.Grid>
           <Card.Grid type="inner" style={cardGridStyleSm}>
-            <Card style={cardStyle}>
-              {convert}
-            </Card>
+            <Card style={cardStyle}>{convert}</Card>
           </Card.Grid>
         </span>
       );
@@ -276,7 +286,7 @@ function createTable(data, props) {
 const Div = styled.div`
   display: block;
   min-width: 800px;
-  margin: '50px';
+  margin: "50px";
 `;
 const H1 = styled.h1`
   color: #e8e8e8;
@@ -293,7 +303,7 @@ function AddressTable(props) {
     // onShowSendToken,
     exchangeRates,
     onSelectCurrency,
-    convertTo,
+    convertTo
   } = props;
 
   const currencyDropdownProps = { exchangeRates, onSelectCurrency, convertTo };
@@ -306,9 +316,7 @@ function AddressTable(props) {
   return (
     <div>
       <H1>Wallet Information</H1>
-      <Div>
-        {createTable(completeRowList, currencyDropdownProps)}
-      </Div>
+      <Div>{createTable(completeRowList, currencyDropdownProps)}</Div>
     </div>
   );
 }
@@ -319,7 +327,7 @@ AddressTable.propTypes = {
   onShowSendToken: PropTypes.func,
   exchangeRates: PropTypes.object,
   onSelectCurrency: PropTypes.func,
-  convertTo: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  convertTo: PropTypes.oneOfType([PropTypes.string, PropTypes.bool])
 };
 
 export default AddressTable;
